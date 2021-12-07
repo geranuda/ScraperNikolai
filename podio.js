@@ -118,7 +118,7 @@ const podio = {
             propertyName: sellersArray[i].propertyAddress,
             firstName: sellersArray[i].firstName,
             lastName: sellersArray[i].lastName,
-            phoneNumber: sellersArray[i].PhoneNumber
+            phoneNumber: sellersArray[i].PhoneNumber.replace("(Work)", " ")
           })
         }
         return allCustomers
