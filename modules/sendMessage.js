@@ -2,8 +2,8 @@ const sendMessage = async (data, page, login)=>{
   await page.setDefaultNavigationTimeout(0);
   const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
   const EMAIL = 'closertwoasc@gmail.com';
-  const PASSWORD = 'Closer2two!';
-  let message = `Hello ${data.firstName}, this is Gerry here! I'm trying to reach out because I have an offer here for your property at ${data.propertyName} , and I was wondering what is the best time to call? Thanks! 🙏`;
+  const PASSWORD = 'Closer2two!' //request password to admin before test;
+  let message = `Hello ${data.firstName}, I just wanted to say hi and let you know that I have and update for the offer that I gave you for ${data.propertyName}?`;
   
   if(login){
       console.log("Logging in now")
@@ -19,20 +19,20 @@ const sendMessage = async (data, page, login)=>{
   console.log("Waiting for dialer")
    await page.waitForSelector('#dialer > div.dialerOpenContainer > a > svg > g > g > g > rect:nth-child(4)', {timeout: 0});
   // await page.waitForTimeout(13000);
-  await page.waitForTimeout(13000);
+  await page.waitForTimeout(9000);
    console.log("Waited for dialer")
    await page.waitForSelector('#dialer > div.dialerOpenContainer > a > svg > g > g > g > rect:nth-child(4)', {timeout: 0});
     // click message button
    await page.click('#dialer > div.dialerOpenContainer > a > svg > g > g > g > rect:nth-child(4)');
   // await page.waitForTimeout(3000);
-   await page.waitForTimeout(3000);
+   await page.waitForTimeout(2000);
    console.log("🌹🌹🌹Here")
    await page.waitForSelector('.svgDialerOpen', {timeout: 0});
    
    console.log("🎁😊🎁 Typing phone number")
    //await page.click('.svgDialerOpen');
    //await page.waitForTimeout(3000);
-   await page.waitForTimeout(3000);
+   await page.waitForTimeout(2000);
   
    // hi, no mic, i am nicolas did before code, i checkout, good job, are you there?
    // Hello I am Juni
@@ -53,12 +53,13 @@ const sendMessage = async (data, page, login)=>{
     await page.waitForTimeout(3000);
     //await page.keyboard.press('ArrowDown');
     console.log("🎶🎁🎁Sending message")
+
    // await page.keyboard.press('Enter');
    await page.click("#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > div.ui.category.fluid.search.makeACallTypeahead")
    // await page.waitForTimeout(3000);
    await page.waitForTimeout(3000);
    //await page.click('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > textarea')
-    await page.type('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > textarea', message, {delay: 25});
+    await page.type('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > textarea', message);
     await page.click("#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > div:nth-child(5) > button")
 
    }catch(e){
@@ -69,7 +70,7 @@ const sendMessage = async (data, page, login)=>{
     await page.waitForSelector('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > div.ui.category.fluid.search.makeACallTypeahead > div > input', {timeout: 0});
    
     console.log("🎁🎁😢 TYping message")
-    await page.type('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > div.ui.category.fluid.search.makeACallTypeahead > div > input', data.phoneNumber.replace("(Work)", " "), {delay: 25});
+    await page.type('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > div.ui.category.fluid.search.makeACallTypeahead > div > input', data.phoneNumber.replace("(Work)", " "), {delay: 10});
     console.log("😎🎁🎁Pressing arrow down")
    // await page.waitForTimeout(3000);
    await page.waitForTimeout(3000);
@@ -78,7 +79,7 @@ const sendMessage = async (data, page, login)=>{
    // await page.keyboard.press('Enter');
     // await page.waitForTimeout(3000);
     await page.waitForTimeout(3000);
-    await page.type('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > textarea', message, {delay: 25});
+    await page.type('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > textarea', message, {delay: 0});
     //await page.keyboard.press("Enter");
     await page.click("#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > div:nth-child(5) > button")
     console.log("Message sent!")

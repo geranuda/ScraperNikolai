@@ -6,7 +6,7 @@ const podio = require('./podio');
 (async () => {
   const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
   const EMAIL = 'closertwoasc@gmail.com';
-  const PASSWORD = 'Closer2two!';
+  const PASSWORD = 'Closer2two!' //request password to admin before test;
   
 
   const page = await podio.initialize();
@@ -38,7 +38,7 @@ let i = 0;
     }
     console.log("Wait for 5 seconds before sending next message")
     //await page.waitForTimeout(5000) Hasta aqui ok modifique esos 5000 segundos a 3000
-    await page.waitForTimeout(5000)
+    await page.waitForTimeout(2000)
   }
   //await page.waitForSelector('');
 

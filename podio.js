@@ -123,7 +123,49 @@ const podio = {
         }
         return allCustomers
   
-  }
+  },
+/*
+  getMessages: async() => {
+
+    let allCustomersMessages =[];
+        // todo ok
+        // debugger;
+        // take all tr(30 se espera)
+        await page.waitForSelector(".content", {timeout: 0})
+          sellersMessagesArray = await page.evaluate( () => {
+            let returnData = [];
+            let allSelectors = document.querySelectorAll('div.chatBody')
+            for(element of allSelectors){
+              returnData.push({
+                firstName: element.querySelector("td:nth-child(6)") && element.querySelector("td:nth-child(6)").innerText.split(" ")[0],
+                lastName: element.querySelector("td:nth-child(6)") && element.querySelector("td:nth-child(6)").innerText.split(" ")[1],
+                PhoneNumber: element.querySelector("td:nth-child(7)") && element.querySelector("td:nth-child(7)").innerText,
+                Messages: element.querySelector("td:nth-child(7)") && element.querySelector("td:nth-child(7)").innerText,
+
+                })
+            }
+            return returnData;
+        })
+
+        for(let i=0; i<sellersMessagesArray.length; i++){
+          console.log(sellersMessagesArray[i])
+          if(i == sellersMessagesArray.length-1){
+            return allCustomersMessages
+          }
+          if(sellersMessagesArray[i].firstName == sellersMessagesrray[i+1].firstName && sellersArray[i].lastName == sellersArray[i+1].lastName){
+              console.log("move on because the next seller matches with the current")
+              continue;
+          }
+          allCustomersMessages.push({
+            firstName: sellersMessagesArray[i].firstName,
+            lastName: sellersMessagesArray[i].lastName,
+            phoneNumber: sellersMessagesArray[i].PhoneNumber.replace("(Work)", " "),
+            Messages: sellersMessagesArray[i].Messages,
+          })
+        }
+        return allCustomersMessages
+
+  }*/
 }
   
   module.exports = podio;
