@@ -17,7 +17,7 @@ const autoRespond = async (page, login)=>{
     }
 
     console.log("Logged in , now checking inbox")
-    await page.waitForSelector("#missedCallsAnchor");
+    //await page.waitForSelector("#missedCallsAnchor")
     console.log("Page is ready to click on unread messages box")
     await page.waitForTimeout(9000);
     try {
@@ -53,12 +53,28 @@ const autoRespond = async (page, login)=>{
         return conversationIds;
     })
     
-    console.log("COnversation IDs", conversationIds)
+    console.log("Conversation IDs", conversationIds)
 
     for (const convID of conversationIds) {
-        await page.goto("https://phone.smrt.studio/inbox/conversation/"+convID)
-        await page.waitForTimeout("10000")
+        try {
+            await page.goto("https://phone.smrt.studio/inbox/conversation/"+convID)
+            await page.waitForTimeout("10000")
+            //await page.waitForTimeout("1000000000")
+            // Get the last message and compare
+            await page.waitForSelector("iframe#main-iframe")
+            let iframeHandle = await page.$("iframe#main-iframe");
+            let frame = await iframeHandle.contentFrame();
+            let lastMessage = await frame.evaluate(async ()=>{
+                return document.querySelector(".chat-list li.media:last-of-type").classList.contains("reversed") ? "" : document.querySelector(".chat-list li.media:last-of-type").innerText
+            })
+
+            //condition for checking last message against the dictionary words
+            console.log("📩📩📩", lastMessage)
+            
+        } catch (error) {
+            console.log("❌some error",convID, error.message)
+        }
     }
 }
-// please push this code to github if there is a repository so I can start tomorrow 
+
 module.exports = autoRespond;
