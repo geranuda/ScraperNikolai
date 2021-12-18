@@ -1,0 +1,11 @@
+["Sure", "yes send me the offer",] //POSITIVE 😊
+Reply: "Ok, I am going to call you and give you an offer."
+
+
+["Who is this?", "I don't  know you", "Who are you"] //negative 😢 
+Reply: "Ok never mind"
+
+["Hi Gerry,", "Hey Gerry ", "Who are you"] //normal 😎
+Reply: "Ok never mind"
+
+

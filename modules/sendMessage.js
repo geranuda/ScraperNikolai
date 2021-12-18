@@ -3,7 +3,7 @@ const sendMessage = async (data, page, login)=>{
   const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
   const EMAIL = 'closertwoasc@gmail.com';
   const PASSWORD = 'Closer2two!' //request password to admin before test;
-  let message = `Hello ${data.firstName}, I just wanted to say hi and let you know that I have and update for the offer that I gave you for ${data.propertyName}?`;
+  let message = `This is Gerry here with www.AllStatesCapitalGroupLLC.com besides saying hello, ${data.firstName}, I wanted to let you know that we have updated the offer that we did for one of your properties at ${data.propertyName}. What is the best time to call and give you a better offer?`;
   
   if(login){
       console.log("Logging in now")
