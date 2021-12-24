@@ -1,4 +1,4 @@
-["Sure", "yes send me the offer",] //POSITIVE 😊
+["Sure", "yes send me the offer", "now",] //POSITIVE 😊
 Reply: "Ok, I am going to call you and give you an offer."
 
 

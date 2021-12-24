@@ -12,14 +12,16 @@ const sendMessage = async (data, page, login)=>{
       await page.type('#username', EMAIL, {delay: 25});
       await page.type('#password', PASSWORD, {delay: 25});
       await page.click('body > div.page-container.login-container > div > div > div > div.panel.panel-body.login-form > form > div:nth-child(5) > button');
+      await page.waitForNavigation();
+      console.log("Navigation done")  
   }else{
       console.log("Seems already logged in")
   }
 
   console.log("Waiting for dialer")
-   await page.waitForSelector('#dialer > div.dialerOpenContainer > a > svg > g > g > g > rect:nth-child(4)', {timeout: 0});
-  // await page.waitForTimeout(13000);
-  await page.waitForTimeout(9000);
+   //await page.waitForSelector('#dialer > div.dialerOpenContainer > a > svg > g > g > g > rect:nth-child(4)', {timeout: 0}); 
+   // await page.waitForTimeout(13000);
+  //await page.waitForTimeout(9000);
    console.log("Waited for dialer")
    await page.waitForSelector('#dialer > div.dialerOpenContainer > a > svg > g > g > g > rect:nth-child(4)', {timeout: 0});
     // click message button
@@ -57,6 +59,7 @@ const sendMessage = async (data, page, login)=>{
    // await page.keyboard.press('Enter');
    await page.click("#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > div.ui.category.fluid.search.makeACallTypeahead")
    // await page.waitForTimeout(3000);
+   
    await page.waitForTimeout(3000);
    //await page.click('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > textarea')
     await page.type('#dialer > div.dialerWrapper.openedDialer.darkTheme > div.callScreenContainer.messageContainer > form > textarea', message);
