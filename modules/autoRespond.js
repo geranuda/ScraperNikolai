@@ -1,15 +1,70 @@
+const preparePageForTests = require("./preparePageForTests");
 const responsesDictionary = require("./responsesDictionary");
 
-const autoRespond = async (page, login)=>{
+const autoRespond = async (page, login, evadeBot=false)=>{
     console.log("Sending automated message", login)
     await page.setDefaultNavigationTimeout(0);
-    const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
+    //await preparePageForTests(page);
+    const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login/';
     const EMAIL = 'closertwoasc@gmail.com';
     const PASSWORD = 'Closer2two!' //request password to admin before test;
     
     if(login){
-        console.log("Logging in now")
+        console.log("Logging in now, evadeBot:", evadeBot)
+
+
         await page.goto(LOGIN_SMRTPHONE, {timeout: 0});
+
+        if(evadeBot){
+            try {
+                console.log("CHecking if the CF page is detected")
+                await page.waitForSelector(".cf-browser-verification", {timeout: 5000});
+                
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                await page.evaluate(() => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                });
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+    
+                await page.waitFor(5000);
+                
+            } catch (error) {
+                try {
+                    console.log("❌❌❌❌Second try to evade cloudflare")
+                    await page.waitForSelector(".cf-browser-verification");
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                    await page.waitFor(100);
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                    await page.evaluate(() => {
+                        window.scrollTo(0, document.body.scrollHeight);
+                    });
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+                    await page.mouse.move(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080));
+    
+                    await page.waitFor(5000);
+                } catch (error) {
+                    console.log("✔✔✔✔✔cloudflare page not found after second try")
+                }
+            }
+            try {
+                await page.waitForSelector(".showSweetAlert.visible");
+                await page.click(".cancel");
+            } catch (error) {
+                console.log("Alert not found", error.message);
+            }
+        }
+
+        
         await page.waitForSelector('#username');
         await page.type('#username', EMAIL, {delay: 25});
         await page.type('#password', PASSWORD, {delay: 25});
@@ -23,7 +78,7 @@ const autoRespond = async (page, login)=>{
     console.log("Logged in , now checking inbox")
     //await page.waitForSelector("#missedCallsAnchor")
     console.log("Page is ready to click on unread messages box")
-    //await page.waitForTimeout(9000);
+    //await page.waitFor(9000);
     try {
         await page.evaluate(()=>{
             let a = document.createElement('a');
@@ -33,7 +88,7 @@ const autoRespond = async (page, login)=>{
         })
     } catch (error) {
         console.log("Error happened, trying again in 9 seconds")
-        await page.waitForTimeout(9000);
+        await page.waitFor(9000);
         await page.evaluate(()=>{
             let a = document.createElement('a');
             a.href = "/inbox";
@@ -42,7 +97,7 @@ const autoRespond = async (page, login)=>{
         })
     }
     console.log("Clicked on the inbox button🛫🛫🛫")
-    //await page.waitForTimeout(9000);
+    //await page.waitFor(9000);
     await page.waitForSelector("iframe#main-iframe")
     const iframeHandle = await page.$("iframe#main-iframe");
     const frame = await iframeHandle.contentFrame();
@@ -65,8 +120,8 @@ const autoRespond = async (page, login)=>{
     for (const convID of conversationIds) {
         try {
             await page.goto("https://phone.smrt.studio/inbox/conversation/"+convID, {timeout: 0})
-            //await page.waitForTimeout(10000)
-            //await page.waitForTimeout("1000000000")
+            //await page.waitFor(10000)
+            //await page.waitFor("1000000000")
             // Get the last message and compare
             //await page.waitForNavigation();
             console.log("Navigation done");
@@ -89,8 +144,6 @@ const autoRespond = async (page, login)=>{
                     let frame = await iframeHandle.contentFrame();
                     await frame.type('[name="enter-message"]', template.reply)
                     await frame.click('.sendMsgConvo')
-                    
-                    await page.waitForTimeout(1000000)
                 }
             }
             

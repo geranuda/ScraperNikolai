@@ -1,20 +1,20 @@
 module.exports = [
     {
-        messages: ["Sure", "yes send me the offer", "now"], //POSITIVE 😊 
-        reply: "Ok, I am going to call you and give you an offer."
+        messages: ["Sure", "yes send me the offer", "now", "Ok", "yes","Send it",], //POSITIVE 😊 
+        reply: "Ok, I'll call you with the offer. What is the best time?"
     },
     {
-        messages: ["Who is this?", "I don't  know you", "Who are you"], //negative 😢 
-        reply: "Ok never mind"
+        messages: ["Stop", "Sold", "No", "Fuck", "It is not me",], //negative 😢 
+        reply: "Ok, thank you and have a blessed day "
     },
     {
-        messages: ["Hi Gerry,", "Hey Gerry ", "Who are you"], //normal 😎
-        reply: "Ok never mind"
+        messages: ["Who is this?", "How can I help?", "Who are you"], //Neutral 😎
+        reply: `This is Gerry here with All States Equity Group, I believe that you spoke with one of my associates about your propperty at ${data.propertyName}`
     },
     /*
     Template for adding more messages
     {
-      messages: [],
+      messages: [], //special cases
       reply: ""  
     },
     */

@@ -10,9 +10,9 @@ const podio = require('./podio');
   
 
   const page = await podio.initialize();
-  await podio.login(EMAIL, PASSWORD);
+  await podio.login(EMAIL, PASSWORD, page);
   // await podio.applyFilters(); // ok
-  let customersList = await podio.getSellers();
+  let customersList = await podio.getSellers(page);
   //console.log("✔✔✔✔✔✔🎁🎁🎁🎁allCustomers", customersList)
 
   /*
@@ -37,8 +37,8 @@ let i = 0;
       console.log("sent message to", data.firstName);
     }
     console.log("Wait for 5 seconds before sending next message")
-    //await page.waitForTimeout(5000) Hasta aqui ok modifique esos 5000 segundos a 3000
-    await page.waitForTimeout(2000)
+    //await page.waitFor(5000) Hasta aqui ok modifique esos 5000 segundos a 3000
+    await page.waitFor(2000)
   }
   //await page.waitForSelector('');
 

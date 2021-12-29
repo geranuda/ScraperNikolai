@@ -1,36 +1,81 @@
-const puppeteer = require('puppeteer');
+const GoLogin = require('gologin');
+const puppeteer = require('puppeteer-extra');
+
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(StealthPlugin());
+const randomUseragent = require('random-useragent');
+//const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36';
+
+const preparePageForTests = require('./modules/preparePageForTests');
 
 const LOGIN_PODIO = 'https://podio.com/login';
 const PROPERTIES_URL = 'https://podio.com/ascguscom/development-deals-pipeline/apps/properties-pipeline#30';
 
 
 let browser = null;
-let page = null;
+let page = null; //why is this null?
 let sellersArray = [];
 
 const podio = {
+  glinitialize: async ()=>{
+    const GL = new GoLogin({
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5ZDAwZDVkMzFkYWM3MWZlNmY0ZjEiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2MWNhMDQ4ZmY0YWY4NDMxNzY3YTA0MWEifQ.tRM4HDbup4WY7ZlgvSUgmuyFyPH5GLdgKEKKmXTEZbM',
+        profile_id: '61ca110be70dd5be2a5f1491',
+    });
 
+    const { status, wsUrl } = await GL.start().catch((e) => {
+      console.trace(e);
+      return { status: 'failure' };
+    });
+
+    if (status !== 'success') {
+      console.log('Invalid status');
+      return;
+    }
+
+    const browser = await puppeteer.connect({
+        browserWSEndpoint: wsUrl.toString(), 
+        ignoreHTTPSErrors: true,
+    });
+
+    const page = await browser.newPage();
+    await page.goto(LOGIN_PODIO);
+    await page.waitForSelector('#email');
+    console.log("🎁🎁🎁🎁🎁Login page Selector is ready");
+    return page;
+  },
     initialize: async() => {
   
       browser = await puppeteer.launch({
         headless: false,
+        executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+        //userDataDir: './userData',
         args: [
-          '--disable-web-security',
-        ],
-        ignoreHTTPSErrors: true,
-        defaultViewport: {
-            width: 1366,
-            height: 900
-        }
+          '--no-sandbox', '--disable-setuid-sandbox', "--disable-notifications",
+          '--user-data-dir=C:/Users/52322/AppData/Local/Google/Chrome/User Data/Profile 1',
+        ], ignoreHTTPSErrors: true, dumpio: false
       });
       page = await browser.newPage();
-      await page.setDefaultNavigationTimeout(0);
+      const userAgent = randomUseragent.getRandom();
+      //const UA = userAgent || USER_AGENT;
+      await page.setViewport({
+        width: 1920 + Math.floor(Math.random() * 100),
+        height: 768 + Math.floor(Math.random() * 100),
+        deviceScaleFactor: 1,
+        hasTouch: false,
+        isLandscape: false,
+        isMobile: false,
+    });
+    //await page.setUserAgent(UA);
+    await page.setJavaScriptEnabled(true);
+    await page.setDefaultNavigationTimeout(0);
+      
       await page.goto(LOGIN_PODIO);
       await page.waitForSelector('#email');
       return page;
     },
   
-    login: async(EMAIL, PASSWORD) => {
+    login: async(EMAIL, PASSWORD, page) => {
   
       await page.click('#email');
       await page.type('#email', EMAIL, {delay: 25});
@@ -61,20 +106,20 @@ const podio = {
         // write
         await page.keyboard.type('For Verbal Offer');
         
-        await page.waitForTimeout(2000);
+        await page.waitFor(2000);
         await page.keyboard.press('ArrowDown');
-        await page.waitForTimeout(2000);
+        await page.waitFor(2000);
         await page.keyboard.press('Enter');
-        await page.waitForTimeout(2000);
+        await page.waitFor(2000);
         // click close assigned
         await page.click('#wrapper > div.simple-balloon.app-filters-popover.gravity-n.arrow-left > div > div > div.navigation > ul > li:nth-child(12) > div > div.bd > a');
         await page.waitForSelector('#wrapper > div.simple-balloon.app-filters-popover.gravity-n.arrow-left > div > div > div.content > div > div > div > div.clear-all-wrapper > ul > li > div > div.bd.input-box > input[type=text]');
         await page.type('#wrapper > div.simple-balloon.app-filters-popover.gravity-n.arrow-left > div > div > div.content > div > div > div > div.clear-all-wrapper > ul > li > div > div.bd.input-box > input[type=text]', 'g' ,{delay: 25});
-        await page.waitForTimeout(2000);
+        await page.waitFor(2000);
         await page.keyboard.press('ArrowDown');
-        await page.waitForTimeout(2000);
+        await page.waitFor(2000);
         await page.keyboard.press('Enter');
-        await page.waitForTimeout(2000);
+        await page.waitFor(2000);
         
         // go properties list whith filters assigned
         await page.goto(PROPERTIES_URL);
@@ -84,7 +129,7 @@ const podio = {
 
     },
   
-    getSellers: async() => {
+    getSellers: async(page) => {
       
       let allCustomers =[];
         // todo ok
