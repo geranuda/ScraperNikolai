@@ -3,5 +3,9 @@ const autoRespond = require('./modules/autoRespond');
 const podio = require('./podio');
 (async function(){
     const page = await podio.initialize();
-    await autoRespond(page,true);
+    try{
+        await autoRespond(page,true);
+    }catch(e){
+        console.log("Some error occured on autoRespond function inside index-autoRespond")
+    }
 })()

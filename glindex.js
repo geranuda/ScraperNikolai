@@ -9,7 +9,7 @@ const podio = require('./podio');
   const PASSWORD = 'Closer2two!' //request password to admin before test;
   
 
-  const page = await podio.initialize();
+  const page = await podio.glinitialize();
   await podio.login(EMAIL, PASSWORD, page);
   // await podio.applyFilters(); // ok
   let customersList = await podio.getSellers(page);
