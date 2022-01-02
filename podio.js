@@ -132,7 +132,6 @@ const podio = {
     getSellers: async(page) => {
       
       let allCustomers =[];
-
         // todo ok
         // debugger;
         // take all tr(30 se espera)
