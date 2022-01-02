@@ -176,7 +176,7 @@ const podio = {
     await page.waitForSelector('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
     console.log("Selector waited we are ready to fire the click 🎈🏹")
     await page.click('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
-    console.log("Selector clicked will click status button indicated🤠🧐👀")
+    console.log("Selector clicked will click status  indicated🤠🧐👀")
 
 
   }
