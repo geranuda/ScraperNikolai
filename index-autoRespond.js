@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const puppeteer = require('puppeteer');
 const autoRespond = require('./modules/autoRespond');
 const podio = require('./podio');
@@ -10,12 +9,3 @@ const podio = require('./podio');
         console.log("Some error occured on autoRespond function inside index-autoRespond")
     }
 })()
-=======
-const puppeteer = require('puppeteer');
-const autoRespond = require('./modules/autoRespond');
-const podio = require('./podio');
-(async function(){
-    const page = await podio.initialize();
-    await autoRespond(page,true);
-})()
->>>>>>> ScraperNikola/GerryBranch
