@@ -27,7 +27,9 @@ do{
       })
       console.log("🎁🎁🎁🎁 data for Agreement is: ", agreementData)
       //🔲 create the agreement doc with the extracted data
+
       //🔲 upload the generated agreement doc 
+      
       await page.waitFor(3000)
       //await page.waitForSelector(".arrow-right");
       // click the next arrow if it is not null

@@ -170,12 +170,15 @@ const podio = {
   
   },
     changeStatus: async(page) => {
+
       let AllStatus = [];
     console.log("Change Status initialized and ready to wait for selector 🧨")
     await page.waitForSelector('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
     console.log("Selector waited we are ready to fire the click 🎈🏹")
     await page.click('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
     console.log("Selector clicked will click status button indicated🤠🧐👀")
+   // put the 1st input "For verbal offer" to 2nd input "In 30 days campaign"
+
 
 
   }

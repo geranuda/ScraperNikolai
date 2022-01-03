@@ -128,6 +128,8 @@ const autoRespond = async (page, login, evadeBot=false)=>{
             await page.waitForSelector("iframe#main-iframe")
             let iframeHandle = await page.$("iframe#main-iframe");
             let frame = await iframeHandle.contentFrame();
+            await frame.waitForSelector(".chat-list li");
+            console.log("🎈🎈🎈Chat ready")
             let lastMessage = await frame.evaluate(async ()=>{
                 return document.querySelector(".chat-list li.media:last-of-type").classList.contains("reversed") ? "" : document.querySelector(".chat-list li.media:last-of-type .media-content").innerText;
             })
