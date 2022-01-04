@@ -5,7 +5,7 @@ module.exports =
             reply: "Ok, I'll call you with the offer. What is the best time?"
         },
         {
-            messages: ["Stop", "Sold", "No", "Fuck", "It is not me","Thanks Gerry and same to you! I have sold that property and will close on January 5th.",], //negative 😢 
+            messages: ["Stop", "Sold", "No", "Fuck", "It is not me","It already sold",], //negative 😢 
             reply: "Ok, thank you and have a blessed day "
         },
         {

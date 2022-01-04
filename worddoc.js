@@ -26,7 +26,8 @@ doc.render({
   last_name: "Doe",
   propertyPrice: "$100,000",
   escrowMoney: "{propertyPrice}*.005",
-  juni: "hello"
+  state: "North Carolina",
+  date: "MM/DD/YYYY" //DAte of creation
 });
 
 const buf = doc.getZip().generate({ type: "nodebuffer" });
