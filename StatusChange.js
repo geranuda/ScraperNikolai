@@ -10,4 +10,3 @@ const page =await podio.initialize()
 await podio.login(EMAIL, PASSWORD, page);
 await podio.changeStatus(page)
 })()
-//iife

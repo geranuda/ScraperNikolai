@@ -169,18 +169,23 @@ const podio = {
      return allCustomers
   
   },
-    changeStatus: async(page) => {
+    changeStatus: async(page, statusText) => {
 
-      let AllStatus = [];
+     /* let AllStatus = [];
     console.log("Change Status initialized and ready to wait for selector 🧨")
     await page.waitForSelector('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
     console.log("Selector waited we are ready to fire the click 🎈🏹")
     await page.click('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
-    console.log("Selector clicked will click status button indicated🤠🧐👀")
+    console.log("Selector clicked will click status button indicated🤠🧐👀")*/
    // put the 1st input "For verbal offer" to 2nd input "In 30 days campaign"
+      //if statusText[0] is selected then change the statusText[1]
+      //li[contains(@class, "selected") and contains(text(), "New")]
+      console.log("Changing status from ", statusText[0], "to", statusText[1], `//li[contains(text(), "${statusText[1]}")]`)
+      if(await page.$x(`//li[contains(@class, "selected") and contains(text(), "${statusText[0]}")]`) !== null){
 
-
-
+        const elements = await page.$x(`//li[contains(text(), "${statusText[1]}")]`)
+        await elements[0].click() 
+      }
   }
 /*
   getMessages: async() => {
