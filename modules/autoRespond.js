@@ -1,8 +1,9 @@
 const preparePageForTests = require("./preparePageForTests");
 const responsesDictionary = require("./responsesDictionary");
 const handleBot = require("./handleBot");
-
+const NLP = require("./NLP");
 const autoRespond = async (page, login, evadeBot=false)=>{
+    const nlp = await NLP.init()
     console.log("Sending automated message", login)
     await page.setDefaultNavigationTimeout(0);
     //await preparePageForTests(page);
@@ -85,17 +86,20 @@ const autoRespond = async (page, login, evadeBot=false)=>{
             })
 
             console.log("📩📩📩", lastMessage)
-            for (const template of responsesDictionary) {
-                
-                //check if the lastMessage is found in any of the templates in the responsesDictionary
-                if(lastMessage.length > 0 && template.messages.some(msg => msg.toLowerCase() == lastMessage.toLowerCase())){
-                    console.log("USER SAID:    ", lastMessage, "\nREPLYING WITH: ", template.reply)
-                    let iframeHandle = await page.$("iframe#main-iframe");
-                    let frame = await iframeHandle.contentFrame();
-                    await frame.type('[name="enter-message"]', template.reply)
-                    await frame.click('.sendMsgConvo')
-                }
+            
+            if(lastMessage !== ""){
+                let replyMessage = await NLP.getReplyMsg(lastMessage, nlp)
+                console.log(replyMessage)
+                console.log("USER SAID:    ", lastMessage, "\nREPLYING WITH: ", replyMessage)
+                let chatIframeHandle = await page.$("iframe#main-iframe");
+                let chatFrame = await chatIframeHandle.contentFrame();
+                await chatFrame.type('[name="enter-message"]', replyMessage)
+                await chatFrame.click('.sendMsgConvo')
             }
+            
+
+
+
             
         } catch (error) {
             console.log("❌some error",convID, error.message)
