@@ -137,6 +137,9 @@ const podio = {
         // take all tr(30 se espera)
         await page.waitForSelector(".content", {timeout: 0})
           sellersArray = await page.evaluate( () => {
+            const convertToNumber = (num) => {
+              return num.replace(/[^0-9\.]+/g, "")
+            }
             let returnData = [];
             let allSelectors = document.querySelectorAll('.content tr')
             for(element of allSelectors){
@@ -145,13 +148,14 @@ const podio = {
                 firstName: element.querySelector("td:nth-child(6)") && element.querySelector("td:nth-child(6)").innerText.split(" ")[0],
                 lastName: element.querySelector("td:nth-child(6)") && element.querySelector("td:nth-child(6)").innerText.split(" ")[1],
                 PhoneNumber: element.querySelector("td:nth-child(7)") && element.querySelector("td:nth-child(7)").innerText,
+                maxOffer: element.querySelector("td:nth-child(10)") && convertToNumber(element.querySelector("td:nth-child(10)").innerText),
                 })
             }
             return returnData;
         })
 
         for(let i=0; i<sellersArray.length; i++){
-          console.log(sellersArray[i])
+          // console.log(sellersArray[i])
           if(i == sellersArray.length-1){
            return allCustomers
           }
@@ -163,7 +167,9 @@ const podio = {
             propertyName: sellersArray[i].propertyAddress,
             firstName: sellersArray[i].firstName,
             lastName: sellersArray[i].lastName,
-            phoneNumber: sellersArray[i].PhoneNumber.replace("(Work)", " ")
+            phoneNumber: sellersArray[i].PhoneNumber.replace("(Work)", " "),
+            maxOffer: sellersArray[i].maxOffer,
+            ourOffer: sellersArray[i].maxOffer - (sellersArray[i].maxOffer * 0.03),
           })
         }
      return allCustomers
@@ -171,23 +177,19 @@ const podio = {
   },
     changeStatus: async(page, statusText) => {
 
-     /* let AllStatus = [];
-    console.log("Change Status initialized and ready to wait for selector 🧨")
-    await page.waitForSelector('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
-    console.log("Selector waited we are ready to fire the click 🎈🏹")
-    await page.click('#wrapper > section > section.app-wrapper__content > main > div > div.scrollable > table > tbody > tr:nth-child(1) > td:nth-child(2)');
-    console.log("Selector clicked will click status button indicated🤠🧐👀")*/
-   // put the 1st input "For verbal offer" to 2nd input "In 30 days campaign"
-      //if statusText[0] is selected then change the statusText[1]
-      //li[contains(@class, "selected") and contains(text(), "New")]
-      console.log("Changing status from ", statusText[0], "to", statusText[1], `//li[contains(text(), "${statusText[1]}")]`)
-      if(await page.$x(`//li[contains(@class, "selected") and contains(text(), "${statusText[0]}")]`) !== null){
+    // put the 1st input "For verbal offer" to 2nd input "In 30 days campaign"
+    //if statusText[0] is selected then change the statusText[1]
+    //li[contains(@class, "selected") and contains(text(), "New")]
+   
+    console.log("Changing status from ", statusText[0], "to", statusText[1], `//li[contains(text(), "${statusText[1]}")]`)
+    if(await page.$x(`//li[contains(@class, "selected") and contains(text(), "${statusText[0]}")]`) !== null){
 
-        const elements = await page.$x(`//li[contains(text(), "${statusText[1]}")]`)
-        await elements[0].click() 
-      }
-  }
-/*
+      const elements = await page.$x(`//li[contains(text(), "${statusText[1]}")]`)
+      // await elements[0].click()
+      console.log("Not clicking to avoid error", statusText[1])
+    }
+  },
+
   getMessages: async() => {
 
     let allCustomersMessages =[];
@@ -228,7 +230,7 @@ const podio = {
         }
         return allCustomersMessages
 
-  }*/
+  }
 }
   
   module.exports = podio;

@@ -1,27 +1,26 @@
-const generateAgreementDoc = require("./generateAgreementDoc")
+const generateLoiDoc = require("./generateLoiDoc")
 const { getStateFromAddress, getStateFromGeoApify } = require("./getStateFromAddress")
 const moment = require("moment");
 
 /**
- * 
  * @param {puppeteer page} page 
- * @param {url of the lead from which data has to be scraped(optional if executing it the lead page)} agreementUrl 
+ * @param {url of the lead from which data has to be scraped(optional if executing it the lead page)} leadUrl 
  * ✅ Scrapes data from the lead
  * ✅ generates the worddoc 
  * 🔲 Submits the worddoc do the lead (WIP) (❌❌❌❌STUCK)
  */
-const processSingleAgreement = async (page, agreementUrl)=>{
-    if(agreementUrl.length > 0){
-        await page.goto(agreementUrl)
+const processSingleLoi = async (page, leadUrl)=>{
+    if(leadUrl !== undefined){
+        await page.goto(leadUrl)
         await page.waitForSelector("#seller-first-name")
         await page.waitFor(1000)
     }
     // ✅scrape data 
-    let agreementData = await page.evaluate(()=>{
+    let leadData = await page.evaluate(()=>{
         const convertToNumber = (num) => {
             return num.replace(/[^0-9\.]+/g, "")
           }
-                
+
         let propertyPrice =document.querySelector("#verbal-offer-amount input.amount-input") !== null ? document.querySelector("#verbal-offer-amount input.amount-input").value : "";
         let escrowMoney = convertToNumber(propertyPrice) * 0.005;
         return {
@@ -31,29 +30,32 @@ const processSingleAgreement = async (page, agreementUrl)=>{
                 propertyPrice: propertyPrice,
                 escrowMoney: escrowMoney,
                 state: "",
-                date: "", //"MM/DD/YYYY" //DAte of creation
+                date: "", //"MM/DD/YYYY" //Date of creation
                 
         }
     })
 
-    console.log("AgreementData from the property page is", agreementData)
+    console.log("leadData from the property page is", leadData)
     console.log("Adding today's date to the data", moment().format("MM/DD/YYYY"))
-    agreementData.date = moment().format("MM/DD/YYYY");
+    leadData.date = moment().format("MM/DD/YYYY")
+
+    // Offer validity date
+    leadData.validityDate = moment().add(7,"days").format("MM/DD/YYYY")
 
     console.log("Adding state to the data")
     try {
-        agreementData.state = await getStateFromAddress(agreementData.propertyAddress);
+        leadData.state = await getStateFromAddress(leadData.propertyAddress);
     } catch (error) {
-        agreementData.state = await getStateFromGeoApify(agreementData.propertyAddress)
+        leadData.state = await getStateFromGeoApify(leadData.propertyAddress)
     }
     console.log("Added state to the data");
 
-    agreementData.sellerName = agreementData.firstName + " " + agreementData.lastName;
-    console.log("🎁🎁🎁🎁 data for Agreement is: ", agreementData)
-    //✅ create the agreement doc with the extracted data
-    let agreementDocPath = await generateAgreementDoc(agreementData);
-    console.log("Agreement created at", agreementDocPath)
-    //🔲 upload the generated agreement doc 
+
+    leadData.sellerName = leadData.firstName + " " + leadData.lastName;
+    console.log("🎁🎁🎁🎁 data for lead is: ", leadData)
+    //✅ create the lead doc with the extracted data
+    let leadDocPath = await generateLoiDoc(leadData);
+    console.log("lead created at", leadDocPath)
 }
 
-module.exports = processSingleAgreement;
+module.exports = processSingleLoi;

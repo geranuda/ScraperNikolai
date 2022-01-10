@@ -8,13 +8,13 @@ function convertToValidFilename(string) {
 }
 /**
  *  sellerName: "Junaid Anwar",
-    streetAddress: "SOME RANDOM ADDRESS OF THE LOCATION",
+    propertyAddress: "SOME RANDOM ADDRESS OF THE LOCATION",
     propertyPrice: "$100,000",
     escrowMoney: "{propertyPrice}*.005",
     state: "North Carolina",
     date: "MM/DD/YYYY" //DAte of creation
 **/
-const generateAgreement = async function(agreementData){
+const generateAgreementDoc = async function(agreementData){
     // Load the docx file as binary content
     const content = fs.readFileSync(
         // path.resolve inside templateDocs/template.docx
@@ -41,4 +41,4 @@ const generateAgreement = async function(agreementData){
     return outputFilePath
 }
 
-module.exports = generateAgreement;
+module.exports = generateAgreementDoc;

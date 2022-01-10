@@ -1,5 +1,8 @@
-
-const processSingleAgreement = require('./modules/processSingleAgreement');
+/**
+ * Remove lines 15 - 31 and do await page.goto("urlWhereTheLeadsAre");
+ * ["Offer Accepted", "New"] -> first index to second index line 43
+ */ 
+const processSingleLoi = require('./modules/processSingleLoi');
 const podio = require('./podio');
 
 const EMAIL = 'closertwoasc@gmail.com';
@@ -8,7 +11,7 @@ const PASSWORD = 'Closer2two!';
 (async () => {
 const page = await podio.initialize()
 await podio.login(EMAIL, PASSWORD, page) 
-// wait for "Offer Accepted / Sent Contract" and then click on Gerry under it
+//wait for "Offer Accepted / Sent Contract" and then click on Gerry under it
 await page.waitForSelector('.app-sidebar__content');
 await page.waitFor(1000)
 await page.evaluate(()=>{
@@ -22,6 +25,7 @@ await page.evaluate(()=>{
       }, 100)
 })
 
+
 await page.waitFor(2000)
 await page.click('[data-id="49744698"] ul li:nth-child(2)');
 await page.waitFor(2000)
@@ -34,8 +38,6 @@ console.log("Clicked on tr item");
 do{
       await page.waitForSelector("#seller-first-name")
       await page.waitFor(1000)
-
-     await processSingleAgreement(page)
 
       await podio.changeStatus(page, ["Offer Accepted", "New"])
       

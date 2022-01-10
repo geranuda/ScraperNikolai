@@ -13,7 +13,7 @@ const podio = require('./podio');
   await podio.login(EMAIL, PASSWORD, page);
   // await podio.applyFilters(); // ok
   let customersList = await podio.getSellers(page);
-  //console.log("✔✔✔✔✔✔🎁🎁🎁🎁allCustomers", customersList)
+  console.log("✔✔✔✔✔✔🎁🎁🎁🎁allCustomers", customersList)
 
   /*
   await page.waitForNavigation( 3000 );

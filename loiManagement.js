@@ -1,5 +1,5 @@
 
-const processSingleAgreement = require('./modules/processSingleAgreement');
+const processSingleLoi = require('./modules/processSingleLoi');
 const podio = require('./podio');
 
 const EMAIL = 'closertwoasc@gmail.com';
@@ -22,6 +22,7 @@ await page.evaluate(()=>{
       }, 100)
 })
 
+
 await page.waitFor(2000)
 await page.click('[data-id="49744698"] ul li:nth-child(2)');
 await page.waitFor(2000)
@@ -35,7 +36,7 @@ do{
       await page.waitForSelector("#seller-first-name")
       await page.waitFor(1000)
 
-     await processSingleAgreement(page)
+      await processSingleLoi(page)
 
       await podio.changeStatus(page, ["Offer Accepted", "New"])
       
