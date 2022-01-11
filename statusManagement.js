@@ -5,12 +5,13 @@
 const processSingleLoi = require('./modules/processSingleLoi');
 const podio = require('./podio');
 
-const EMAIL = 'closertwoasc@gmail.com';
+const EMAIL = 'closertwoasc@gmail.co';
 const PASSWORD = 'Closer2two!';
 
 (async () => {
 const page = await podio.initialize()
 await podio.login(EMAIL, PASSWORD, page) 
+/*
 //wait for "Offer Accepted / Sent Contract" and then click on Gerry under it
 await page.waitForSelector('.app-sidebar__content');
 await page.waitFor(1000)
@@ -29,6 +30,7 @@ await page.evaluate(()=>{
 await page.waitFor(2000)
 await page.click('[data-id="49744698"] ul li:nth-child(2)');
 await page.waitFor(2000)
+*/
 
 await page.waitForSelector(".content", {timeout: 0})
 
@@ -39,7 +41,7 @@ do{
       await page.waitForSelector("#seller-first-name")
       await page.waitFor(1000)
 
-      await podio.changeStatus(page, ["Offer Accepted", "New"])
+      await podio.changeStatus(page, ["Transferred", "Need more information"])
       
       await page.waitFor(3000)
 

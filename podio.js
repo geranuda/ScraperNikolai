@@ -185,8 +185,8 @@ const podio = {
     if(await page.$x(`//li[contains(@class, "selected") and contains(text(), "${statusText[0]}")]`) !== null){
 
       const elements = await page.$x(`//li[contains(text(), "${statusText[1]}")]`)
-      // await elements[0].click()
-      console.log("Not clicking to avoid error", statusText[1])
+      await elements[0].click()
+      //console.log("Not clicking to avoid error", statusText[1])
     }
   },
 

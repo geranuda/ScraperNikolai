@@ -2,7 +2,7 @@
 const podio = require('./podio');
 
 const processSingleAgreement = require('./modules/processSingleAgreement');
-const EMAIL = 'closertwoasc@gmail.com';
+const EMAIL = 'closertwoasc@gmail.co';
 const PASSWORD = 'Closer2two!';
 
 (async () => {

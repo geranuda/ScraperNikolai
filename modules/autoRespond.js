@@ -8,7 +8,7 @@ const autoRespond = async (page, login, evadeBot=false)=>{
     await page.setDefaultNavigationTimeout(0);
     //await preparePageForTests(page);
     const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login/';
-    const EMAIL = 'closertwoasc@gmail.com';
+    const EMAIL = 'closertwoasc@gmail.co';
     const PASSWORD = 'Closer2two!' //request password to admin before test;
     
     if(login){
