@@ -32,7 +32,7 @@ const { dockStart } = require('@nlpjs/basic');
             nlp.addDocument('en', response, 'response.humanNeeded');
             }
 
-            //Human needed 
+            //Apointment needed 
             let apoinmentNeeded = ["I should be free this afternoon around ", "Call around", "I will be available at ", ];
             for(let response of apoinmentNeeded){
             nlp.addDocument('en', response, 'response.apoinmentNeeded');
