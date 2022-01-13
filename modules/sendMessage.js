@@ -1,9 +1,9 @@
 const sendMessage = async (data, page, login)=>{
   await page.setDefaultNavigationTimeout(0);
   const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
-  const EMAIL = 'closertwoasc@gmail.co';
+  const EMAIL = 'closertwoasc@gmail.com';
   const PASSWORD = 'Closer2two!' //request password to admin before test;                    if you want to add property addres add please ${data.propertyName}     //
-  let message = `Hello!, ${data.firstName}, this is Gerry here, I wanted to give you a heads-up on the offer that we made your property at ${data.propertyName}, what is the best time to call? or do you want me to keep messaging? Btw, something if sometimes I stop replying but we are doing some changes to the Company and it is a little chaotic, but thanks for understaing. Have a blessed day, ${data.firstName}. Cheers! `;
+  let message = `Hello!, ${data.firstName}, this is Gerry here with AllStatesEquityGroup.com; I would like to make an offer for your property at ${data.propertyName}. I just want to confirm some information so I can give you the best possible figure. Please let me know if you want me to keep texting you, or if you would prefer a call. Have a blessed day ${data.firstName}. Cheers!`;
   
   if(login){
       console.log("Logging in now")

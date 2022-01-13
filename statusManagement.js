@@ -5,7 +5,7 @@
 const processSingleLoi = require('./modules/processSingleLoi');
 const podio = require('./podio');
 
-const EMAIL = 'closertwoasc@gmail.co';
+const EMAIL = 'closertwoasc@gmail.com';
 const PASSWORD = 'Closer2two!';
 
 (async () => {
@@ -41,8 +41,8 @@ do{
       await page.waitForSelector("#seller-first-name")
       await page.waitFor(1000)
 
-      await podio.changeStatus(page, ["Transferred", "Need more information"])
-      
+      await podio.changeStatus(page, ["Transferred", "For Evaluation"])
+      // ACTIVATE THIS IF YOU WANT TO SET UP AN EVALUATOR await page.click('#evaluator > div.frame-wrapper > div.frame-content > div > ul > li.color-D2E4EB');
       await page.waitFor(3000)
 
       try {
