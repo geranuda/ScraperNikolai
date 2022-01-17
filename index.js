@@ -2,6 +2,7 @@
 const puppeteer = require('puppeteer');
 const sendMessage = require('./modules/sendMessage');
 const podio = require('./podio');
+const localDb = require('./localDb');
 
 (async () => {
   const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
@@ -15,6 +16,12 @@ const podio = require('./podio');
   let customersList = await podio.getSellers(page);
   console.log("✔✔✔✔✔✔🎁🎁🎁🎁allCustomers", customersList)
 
+  //for (const user of customersList) {
+    //console.log("🍕🍕🍕🍕🍕🍕INserting ", user)
+    //localDb.insert(user)
+  //}
+  //console.log("🍕🍕🍕🍕🍕🍕User inserted(first)", customersList[0])
+  //localDb.getUsers().then(users => console.log("Users in the DB(first) ",users[0]));
   /*
   await page.waitForNavigation( 3000 );
   if (await page.$('#seller-last-name') !== null) {

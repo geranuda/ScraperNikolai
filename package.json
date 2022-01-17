@@ -18,6 +18,7 @@
     "fs": "0.0.1-security",
     "geo-streetaddress-us": "^0.2.2",
     "gologin": "^1.0.29",
+    "googleapis": "^92.0.0",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.6",
     "pizzip": "^3.1.1",

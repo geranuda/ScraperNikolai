@@ -43,7 +43,7 @@ const podio = {
     await page.waitForSelector('#email');
     console.log("🎁🎁🎁🎁🎁Login page Selector is ready");
     return page;
-  },
+  }, 
     initialize: async() => {
   
       browser = await puppeteer.launch({
@@ -145,10 +145,10 @@ const podio = {
             for(element of allSelectors){
               returnData.push({
                 propertyAddress: element.querySelector("td:nth-child(2)") && element.querySelector("td:nth-child(2)").innerText,
-                firstName: element.querySelector("td:nth-child(6)") && element.querySelector("td:nth-child(6)").innerText.split(" ")[0],
-                lastName: element.querySelector("td:nth-child(6)") && element.querySelector("td:nth-child(6)").innerText.split(" ")[1],
-                PhoneNumber: element.querySelector("td:nth-child(7)") && element.querySelector("td:nth-child(7)").innerText,
-                maxOffer: element.querySelector("td:nth-child(10)") && convertToNumber(element.querySelector("td:nth-child(10)").innerText),
+                firstName: element.querySelector("td:nth-child(5)") && element.querySelector("td:nth-child(5)").innerText.split(" ")[0],
+                lastName: element.querySelector("td:nth-child(5)") && element.querySelector("td:nth-child(5)").innerText.split(" ")[1],
+                PhoneNumber: element.querySelector("td:nth-child(6)") && element.querySelector("td:nth-child(6)").innerText,
+                maxOffer: element.querySelector("td:nth-child(9)") && convertToNumber(element.querySelector("td:nth-child(9)").innerText),
                 })
             }
             return returnData;

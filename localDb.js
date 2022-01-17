@@ -1,18 +1,50 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('./db/database.db');
 
-db.serialize(function() {
-  // db.run("CREATE TABLE users (user TEXT, email TEXT)");
+const localDb = {
+  init: function(){
+    db.serialize(function() {
+      db.run("CREATE TABLE users (firstName TEXT,lastName TEXT,propertyAddress TEXT,PhoneNumber TEXT,maxOffer TEXT)");
+    });
+    
+  },
 
-  // var stmt = db.prepare("INSERT INTO users VALUES (?, ?)");
-  // for (var i = 0; i < 10; i++) {
-  //     stmt.run(i, `email${i}@example.com`);
-  // }
-  // stmt.finalize();
+  insert: function(userData){
 
-  db.each("SELECT * FROM users WHERE user=1", function(err, row) {
-      console.log(row);
-  });
-});
+    db.serialize(function() {
+      var stmt = db.prepare("INSERT INTO users VALUES (?, ?, ?, ?, ?)");
+      // loop over userData object entries and insert into db
+      stmt.run(userData.firstName, userData.lastName, userData.propertyName, userData.phoneNumber, userData.maxOffer);
 
-db.close();
+      stmt.finalize();
+    });
+    
+    
+  },
+
+  getUsers: async function(){
+    return new Promise((resolve, reject) => {
+      let users = [];
+  
+      // get all users from db and resolve promise
+      db.serialize(function() {
+        db.each("SELECT * FROM users", function(err, row) {
+          users.push(row);
+        }, function() {
+          resolve(users);
+        });
+      });
+      
+      // db.close();
+      // console.log("Users are: ",users);
+      // return users;
+    });
+  }
+}
+
+//localDb.init();
+// localDb.insert({firstName: "Junaid",lastName: "Anwar",propertyAddress: "Pakistan",PhoneNumber: "30123032",maxOffer: "100000"});
+
+//localDb.getUsers().then(users => console.log("resolved users ",users));
+
+module.exports = localDb;

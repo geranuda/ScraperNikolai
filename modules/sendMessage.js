@@ -3,7 +3,7 @@ const sendMessage = async (data, page, login)=>{
   const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
   const EMAIL = 'closertwoasc@gmail.com';
   const PASSWORD = 'Closer2two!' //request password to admin before test;                    if you want to add property addres add please ${data.propertyName}     //
-  let message = `Hello!, ${data.firstName}, this is Gerry here with AllStatesEquityGroup.com; I would like to make an offer for your property at ${data.propertyName}. I just want to confirm some information so I can give you the best possible figure. Please let me know if you want me to keep texting you, or if you would prefer a call. Have a blessed day ${data.firstName}. Cheers!`;
+  let message = `Howdy! ${data.firstName}, this is Gerry here with AllStatesEquityGroup.com; we are interested in your property at ${data.propertyName} is this still for sale? Thanks, ${data.firstName} and have a blessed day, cheers!`;
   
   if(login){
       console.log("Logging in now")

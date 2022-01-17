@@ -41,7 +41,7 @@ do{
       await page.waitForSelector("#seller-first-name")
       await page.waitFor(1000)
 
-      await podio.changeStatus(page, ["Transferred", "For Evaluation"])
+      await podio.changeStatus(page, ["In 12 months Drip", "Verifying availability"])
       // ACTIVATE THIS IF YOU WANT TO SET UP AN EVALUATOR await page.click('#evaluator > div.frame-wrapper > div.frame-content > div > ul > li.color-D2E4EB');
       await page.waitFor(3000)
 
