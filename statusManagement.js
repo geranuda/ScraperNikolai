@@ -5,8 +5,8 @@
 const processSingleLoi = require('./modules/processSingleLoi');
 const podio = require('./podio');
 
-const EMAIL = 'closeroneasc@gmail.com';
-const PASSWORD = 'Alan$030';
+const EMAIL = 'closertwoasc@gmail.com';
+const PASSWORD = 'Closer2two!';
 
 (async () => {
 const page = await podio.initialize()
@@ -36,13 +36,20 @@ await page.waitForSelector(".content", {timeout: 0})
 
 await page.click('.content tr');
 console.log("Clicked on tr item");
+const propertyToStopAt = "jsdlk2 (Self-Storage)";
 
 do{
       await page.waitForSelector("#seller-first-name")
       await page.waitFor(1000)
-
-      await podio.changeStatus(page, ["30-Day Campaign", "Verify data ASAP"])
-      // ACTIVATE THIS IF YOU WANT TO SET UP AN EVALUATOR await page.click('#evaluator > div.frame-wrapper > div.frame-content > div > ul > li.color-D2E4EB');
+      const propertyAddress = await page.$eval("#property-name .markdown", el => el.innerText.trim())
+      // check if the address matches with the propertyToStopAt
+      console.log("🍳🍳🍳🍳🍳🍳",propertyAddress == propertyToStopAt, propertyAddress, propertyToStopAt)
+      if(propertyToStopAt == propertyAddress){
+            console.log("SHould stop here")
+            break;
+      }
+      await podio.changeStatus(page, ["Transferred", "For Evaluation"])
+      await page.click('#evaluator > div.frame-wrapper > div.frame-content > div > ul > li.color-D2E4EB');
       await page.waitFor(3000)
 
       

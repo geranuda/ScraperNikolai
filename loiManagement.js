@@ -2,8 +2,8 @@
 const processSingleLoi = require('./modules/processSingleLoi');
 const podio = require('./podio');
 
-const EMAIL = 'closeroneasc@gmail.com';
-const PASSWORD = 'Alan$030';
+const EMAIL = 'closertwoasc@gmail.com';
+const PASSWORD = 'Closer2two!';
 
 (async () => {
 const page = await podio.initialize()
