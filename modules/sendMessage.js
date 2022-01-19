@@ -1,11 +1,12 @@
 const sendMessage = async (data, page, login)=>{
   await page.setDefaultNavigationTimeout(0);
   const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
-  const EMAIL = 'closertwoasc@gmail.com';
-  const PASSWORD = 'Closer2two!' //request password to admin before test;                    if you want to add property addres add please ${data.propertyName}     //
-  let message = `Howdy! ${data.firstName}, this is Gerry here with AllStatesEquityGroup.com; we are interested in your property at ${data.propertyName} is this still for sale? Thanks, ${data.firstName} and have a blessed day, cheers!`;
+  const EMAIL = 'closeroneasc@gmail.com';
+  const PASSWORD = 'Alan$030' //request password to admin before test;                    if you want to add property addres add please ${data.propertyName}     //
+  let message = `Hello! ${data.firstName}, this is Alan here, on behalf of AllStatesEquityGroup.com I just wanted to let you know that on account of our 2022 acquisition guidelines, we would like to make an updated offer for your property at ${data.propertyName}, please let me know if you want me to text/call/email you the offer, Thanks!`;
   
   if(login){
+      
       console.log("Logging in now")
       await page.goto(LOGIN_SMRTPHONE, {timeout: 0});
       await page.waitForSelector('#username', {timeout: 0});

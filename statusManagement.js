@@ -5,8 +5,8 @@
 const processSingleLoi = require('./modules/processSingleLoi');
 const podio = require('./podio');
 
-const EMAIL = 'closertwoasc@gmail.com';
-const PASSWORD = 'Closer2two!';
+const EMAIL = 'closeroneasc@gmail.com';
+const PASSWORD = 'Alan$030';
 
 (async () => {
 const page = await podio.initialize()
@@ -41,10 +41,11 @@ do{
       await page.waitForSelector("#seller-first-name")
       await page.waitFor(1000)
 
-      await podio.changeStatus(page, ["In 12 months Drip", "Verifying availability"])
+      await podio.changeStatus(page, ["30-Day Campaign", "Verify data ASAP"])
       // ACTIVATE THIS IF YOU WANT TO SET UP AN EVALUATOR await page.click('#evaluator > div.frame-wrapper > div.frame-content > div > ul > li.color-D2E4EB');
       await page.waitFor(3000)
 
+      
       try {
             await page.click(".arrow-right");
       } catch (error) {

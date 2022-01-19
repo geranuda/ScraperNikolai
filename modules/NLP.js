@@ -52,6 +52,11 @@ const { dockStart } = require('@nlpjs/basic');
             const response = await nlp.process('en', userMessage);
             return response.answer;
         },
+        getRawReply: async function(userMessage, nlp){
+            
+            const response = await nlp.process('en', userMessage);
+            return response;
+        },
 
     }
 
