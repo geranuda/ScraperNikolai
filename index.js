@@ -3,18 +3,30 @@ const puppeteer = require('puppeteer');
 const sendMessage = require('./modules/sendMessage');
 const podio = require('./podio');
 const localDb = require('./localDb');
+const podioApi = require('./modules/podioApi');
+const processCustomersList = require('./modules/processCustomersList');
 
 (async () => {
-  const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
-  const EMAIL = 'closertwoasc@gmail.com';
-  const PASSWORD = 'Closer2two!' //request password to admin before test;
+  //const LOGIN_SMRTPHONE = 'https://phone.smrt.studio/login';
+  //const EMAIL = 'closertwoasc@gmail.com';
+  //const PASSWORD = 'Closer2two!' //request password to admin before test;
   
 
   const page = await podio.initialize();
-  await podio.login(EMAIL, PASSWORD, page);
+  // await podio.login(EMAIL, PASSWORD, page);
   // await podio.applyFilters(); // ok
-  let customersList = await podio.getSellers(page);
-  console.log("✔✔✔✔✔✔🎁🎁🎁🎁allCustomers", customersList)
+
+
+  // let customersList = await podio.getSellers(page);
+
+  let access_token = await podioApi.init();
+  let rawCustomersList = await podioApi.getData("https://api.podio.com/item/app/25804586/filter/49714622", access_token);
+
+
+  // Process customers list to extract the required data
+  let customersList = await processCustomersList(rawCustomersList);
+  console.log("🎁🎁🎁🎁allCustomers", customersList)
+
 
   //for (const user of customersList) {
     //console.log("🍕🍕🍕🍕🍕🍕INserting ", user)

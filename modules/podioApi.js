@@ -33,7 +33,7 @@ const podioApi = {
                     'Authorization': 'Bearer ' + access_token,
                 },
                 body: JSON.stringify({
-                    "limit": 2,
+                    "limit": 1,
                     "offset": 0
                 })
             };
